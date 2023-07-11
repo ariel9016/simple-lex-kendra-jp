@@ -1,4 +1,11 @@
-export const sendQuery = async (api: string, query: string) => {
+import { QueryResult } from '@aws-sdk/client-kendra';
+import { FilterType } from '../components/FilterResult';
+
+export const sendQuery = async (
+  api: string,
+  query: string,
+  filters?: FilterType[]
+) => {
   const res = await fetch(api, {
     method: 'POST',
     headers: {
@@ -6,6 +13,7 @@ export const sendQuery = async (api: string, query: string) => {
     },
     body: JSON.stringify({
       query,
+      filters,
     }),
   });
 
@@ -13,11 +21,7 @@ export const sendQuery = async (api: string, query: string) => {
     throw new Error(`API Error (${res.status})`);
   }
 
-  const items = (await res.json()).ResultItems;
+  const result: QueryResult = await res.json();
 
-  if (!items) {
-    throw new Error(`Items not found`);
-  }
-
-  return items;
+  return result;
 };

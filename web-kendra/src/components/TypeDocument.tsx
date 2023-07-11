@@ -66,7 +66,7 @@ function TypeDocument(props: TypeDocumentProps) {
     }, [props]);
 
   return (
-    <div className="p-4 w-2/3 mb-3">
+    <div className="p-4 mb-3">
       {hasDocumentURI && hasS3DocumentURI && (
         <div
           className="text-xs text-sky-400 flex items-center cursor-pointer mb-1 ml-1 w-fit"
